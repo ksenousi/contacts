@@ -15,7 +15,6 @@ pub struct ContactListProps {
 
 #[function_component(ContactsList)]
 pub fn videos_list(ContactListProps { contacts, on_click }: &ContactListProps) -> Html {
-    let on_click = on_click.clone();
     contacts
         .iter()
         .map(|contact| {
@@ -26,7 +25,7 @@ pub fn videos_list(ContactListProps { contacts, on_click }: &ContactListProps) -
             };
 
             html! {
-                <p onclick={on_video_select}>{format!("{}", contact.name)}</p>
+                <p onclick={on_video_select}>{contact.name.to_string()}</p>
             }
         })
         .collect()

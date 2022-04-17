@@ -19,13 +19,12 @@ fn app() -> Html {
         }
     });
 
-    let contacts = use_state(|| vec![]);
+    let contacts = use_state(Vec::new);
 
     {
         let contacts = contacts.clone();
         use_effect_with_deps(
             move |_| {
-                let contacts = contacts.clone();
                 wasm_bindgen_futures::spawn_local(async move {
                     let fetched_contacts: Vec<Contact> =
                         Request::get("http://localhost:8000/contacts")
@@ -46,7 +45,7 @@ fn app() -> Html {
     html! {
         <>
             <h1>{ "Contacts" }</h1>
-            <ContactsList contacts={(*contacts).clone()} on_click={on_contact_select.clone()} />
+            <ContactsList contacts={(*contacts).clone()} on_click={on_contact_select} />
             { for details }
         </>
     }

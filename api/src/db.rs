@@ -3,7 +3,7 @@ pub mod contact;
 use contact::Contact;
 
 pub fn init_db() -> Result<Connection, String> {
-    let conn = Connection::open("contacts.sqlite").or_else(|e| Err(e.to_string()))?;
+    let conn = Connection::open("contacts.sqlite").map_err(|e| e.to_string())?;
 
     conn.execute(
         "create table if not exists contact (
@@ -12,7 +12,7 @@ pub fn init_db() -> Result<Connection, String> {
          )",
         [],
     )
-    .or_else(|e| Err(e.to_string()))?;
+    .map_err(|e| e.to_string())?;
 
     Ok(conn)
 }
@@ -20,7 +20,7 @@ pub fn init_db() -> Result<Connection, String> {
 pub fn get(conn: &Connection) -> Result<Vec<Contact>, String> {
     let mut query = conn
         .prepare("SELECT * FROM contact")
-        .or_else(|e| Err(e.to_string()))?;
+        .map_err(|e| e.to_string())?;
 
     let contacts = query.query_map([], |row| {
         Ok(Contact {
