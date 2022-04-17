@@ -1,2 +1,4 @@
 api/target
+web-app/dist
+web-app/target
 *.sqlite

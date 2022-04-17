@@ -6,6 +6,9 @@ use rocket::State;
 use rusqlite::Connection;
 use std::sync::{Arc, Mutex};
 
+mod cors;
+use cors::CORS;
+
 mod db;
 use db::contact::Contact;
 
@@ -53,6 +56,7 @@ fn rocket() -> _ {
 
     rocket::build()
         .manage(Arc::new(Mutex::new(conn)))
+        .attach(CORS)
         .mount("/", routes![index])
         .mount("/contacts", routes![get_contacts, add_contact])
 }
