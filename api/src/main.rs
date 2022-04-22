@@ -60,3 +60,6 @@ fn rocket() -> _ {
         .mount("/", routes![index])
         .mount("/contacts", routes![get_contacts, add_contact])
 }
+
+#[cfg(test)]
+mod test;
