@@ -14,18 +14,18 @@ pub struct ContactListProps {
 }
 
 #[function_component(ContactsList)]
-pub fn videos_list(ContactListProps { contacts, on_click }: &ContactListProps) -> Html {
+pub fn contacts_list(ContactListProps { contacts, on_click }: &ContactListProps) -> Html {
     contacts
         .iter()
         .map(|contact| {
-            let on_video_select = {
+            let on_contact_select = {
                 let on_click = on_click.clone();
                 let contact = contact.clone();
                 Callback::from(move |_| on_click.emit(contact.clone()))
             };
 
             html! {
-                <p onclick={on_video_select}>{contact.name.to_string()}</p>
+                <p onclick={on_contact_select}>{contact.name.to_string()}</p>
             }
         })
         .collect()
@@ -37,7 +37,7 @@ pub struct ContactDetailsProps {
 }
 
 #[function_component(ContactDetails)]
-pub fn video_details(ContactDetailsProps { contact }: &ContactDetailsProps) -> Html {
+pub fn contact_details(ContactDetailsProps { contact }: &ContactDetailsProps) -> Html {
     html! {
         <div>
             <h3>{ format!("ID: {}",contact.id) }</h3>
